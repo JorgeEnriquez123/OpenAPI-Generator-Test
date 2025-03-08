@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: OpenApiGen
+
+customer:
+  api:
+    url: http://localhost:8090/api/v1 # Hardcoded URL just for testing

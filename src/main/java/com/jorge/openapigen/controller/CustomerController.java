@@ -2,30 +2,31 @@ package com.jorge.openapigen.controller;
 
 import com.jorge.client.model.Customer;
 import com.jorge.openapigen.service.CustomerService;
+import feign.Response;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/customer")
 @RequiredArgsConstructor
 public class CustomerController {
-    private final CustomerService customerService;
+    public final CustomerService customerService;
 
     @GetMapping
-    public Flux<Customer> getCustomers() {
+    public ResponseEntity<List<Customer>> getAllCustomers() {
         return customerService.getAllCustomers();
     }
 
-    @GetMapping("/{customerId}")
-    public Mono<Customer> getCustomer(@PathVariable("customerId") Long customerId) {
-        return customerService.getCustomer(customerId);
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
+        return customerService.getCustomerById(id);
     }
 
     @PostMapping
-    public Mono<Customer> createCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
         return customerService.createCustomer(customer);
     }
-
 }
